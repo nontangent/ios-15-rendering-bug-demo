@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>iOS 15 Rendering Bug Demo</title>
+  </head>
+  <body>
+    <div class="noop area">
+      &lt;div class="noop area"&gt;&lt;/div&gt;
+    </div>
+    <div class="alert area" onclick="alert('red zone is clicked')">
+      &lt;div class="alert area" onclick="alert('red zone is clicked')"&gt;&lt;/code&gt;
+    </div>
+
+    <div class="description area">
+      <p>If you scroll down and click `change body position fixed` button, 
+        the body element will be rendered off about 85px down
+        and noop area will become alert area.</p>
+    </div>
+
+    <div class="off-button area">
+      <button onclick="toggleFixed(false)">change body position inherit</button>
+    </div>
+
+    <div class="on-button area">
+      <button onclick="toggleFixed(true)">change body position fixed</button>
+    </div>
+  </body>
+  <style>
+    body {
+      position: inherit;
+      width: 100vw;
+      height: 2100px;
+      margin: 0;
+      background-image: repeating-linear-gradient(#ccc, #ccc 1px, #fff 0, #fff 100px);
+    }
+
+    body.fixed {
+      position: fixed;
+    }
+    
+    .area {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 85px; 
+    }
+
+    .noop {
+      top: 15px;
+      background-color: rgba(0, 255, 0, 0.5);
+    }
+
+    .alert {
+      top: 100px;
+      background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .description {
+      top: 300px;
+    }
+
+    .off-button {
+      top: 400px;
+    }
+
+    .on-button {
+      top: 2000px;
+    }
+  </style>
+  <script>
+    toggleFixed = v => document.body.classList = v ? ['fixed'] : [];
+  </script>
+</html>
